@@ -1,0 +1,9 @@
+{
+  "shell-version": ["42"],
+  "version": "1.0.0",
+  "uuid": "trash-app-extension@zecarneiro.pt",
+  "name": "Trash",
+  "description": "A Trash button for the GNOME shell panel",
+  "url": "https://github.com/zecarneiro/trash-app-extension",
+  "original-authors": "José Noronha"
+}
