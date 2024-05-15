@@ -1,0 +1,26 @@
+{
+  "name": "trash",
+  "version": "2.0.0",
+  "description": "A Trash button for the GNOME shell panel",
+  "type": "module",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zecarneiro/trash-app-extension.git"
+  },
+  "author": "José Noronha",
+  "license": "LGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/zecarneiro/trash-app-extension/issues"
+  },
+  "homepage": "https://github.com/zecarneiro/trash-app-extension#readme",
+  "sideEffects": false,
+  "devDependencies": {
+    "eslint": "^9.2.0",
+    "eslint-plugin-jsdoc": "^48.2.4"
+  },
+  "dependencies": {
+    "@girs/gjs": "^4.0.0-beta.5",
+    "@girs/gnome-shell": "^46.0.0-beta8"
+  }
+}
