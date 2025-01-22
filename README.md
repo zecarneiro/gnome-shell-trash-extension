@@ -15,7 +15,10 @@ It allows you to empty and open the Trash folder.
 
 # Manual Installation
 
-Run `make --install` restart the shell(`Alt + F2 → r → Enter`).
+```
+wget -qO- https://raw.githubusercontent.com/zecarneiro/trash-app-extension/master/make.sh | bash /dev/stdin "--install"
+```
+Restart the shell(`Alt + F2 → r → Enter`).
 
 # For tests
 

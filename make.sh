@@ -7,6 +7,7 @@ BIN_DIR="$ROOT_DIR/dist"
 ZIP_FILE_NAME="${NAME}.zip"
 ZIP_FILE="$ROOT_DIR/$ZIP_FILE_NAME"
 UUID="${NAME}@${DOMAIN}"
+LATEST_VERSION="2.0.1"
 
 # ---------------------------------------------------------------------------- #
 #                                 GENERIC AREA                                 #
@@ -48,6 +49,7 @@ release() {
     build
     exec_cmd "cp metadata.json '$BIN_DIR'"
     (cd "$BIN_DIR" && zip "$ZIP_FILE" -9r .)
+    echo "[INFO] The release package is located: '$ZIP_FILE'"
     clean
 }
 
@@ -56,14 +58,21 @@ uninstall() {
 }
 
 install() {
+    local typeInstall="$1"
     local installDir="$LOCAL_SHARE_DIR/gnome-shell/extensions/$UUID"
+    local zipTmp="/tmp/${ZIP_FILE_NAME}"
     uninstall
     if [ -d "$installDir" ]; then
         exec_cmd "rm -rf '$installDir'"
     fi
-    release
-    exec_cmd "gnome-extensions install '$ZIP_FILE' --force"
+    if [[ "${typeInstall}" == "local" ]]; then
+        exec_cmd "cp '$ZIP_FILE' '${zipTmp}'"
+    else
+        wget -q -O "${zipTmp}" "https://github.com/zecarneiro/trash-app-extension/releases/download/v${LATEST_VERSION}/${ZIP_FILE_NAME}"
+    fi
+    exec_cmd "gnome-extensions install '$zipTmp' --force"
     exec_cmd "gext enable '$UUID'"
+    exec_cmd "rm -rf '$zipTmp'"
 }
 
 # ---------------------------------------------------------------------------- #
@@ -112,13 +121,21 @@ main() {
         install_python
         install_gext
     fi
-    validate_all
     case "$action" in
-    --release) release ;;
-    --install) install ;;
+    --release)
+        validate_all
+        release
+    ;;
+    --install) install "$@" ;;
     --uninstall) uninstall ;;
-    --build) build ;;
-    --clean) clean ;;
+    --build)
+        validate_all
+        build
+    ;;
+    --clean)
+        validate_all
+        clean
+    ;;
     *) echo "$0 --build|--install|--release|--clean" ;;
     esac
 

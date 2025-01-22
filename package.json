@@ -1,6 +1,6 @@
 {
   "name": "trash",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "A Trash button for the GNOME shell panel",
   "type": "module",
   "private": true,
